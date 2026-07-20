@@ -54,7 +54,29 @@
   .nav-links a{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-dim);transition:color .25s,text-shadow .25s;}
   .nav-links a::before{content:"/ ";color:var(--ink-faint);}
   .nav-links a:hover{color:var(--ink);text-shadow:var(--glow);}
-  @media(max-width:900px){.nav-links{display:none}}
+  @media(max-width:900px){.nav-links{display:none}.nav-status-label{display:none}}
+  .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;z-index:1002;}
+  .burger span{display:block;width:22px;height:2px;background:var(--ink);transition:transform .3s,opacity .3s;}
+  .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .burger.open span:nth-child(2){opacity:0;}
+  .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  @media(max-width:900px){.burger{display:flex;}}
+  .mobile-menu{
+    position:fixed;inset:0;z-index:999;background:rgba(4,4,4,.97);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    display:flex;flex-direction:column;justify-content:center;padding:0 32px;gap:6px;
+    opacity:0;pointer-events:none;transition:opacity .3s;
+  }
+  .mobile-menu.open{opacity:1;pointer-events:auto;}
+  .mobile-menu a{
+    font-family:var(--ext);font-stretch:125%;font-weight:800;text-transform:uppercase;
+    font-size:clamp(26px,7vw,40px);color:var(--ink);padding:10px 0;border-bottom:1px solid var(--line);
+  }
+  @media(max-width:600px){
+    .wrap{padding:0 20px;}
+    .head{padding:130px 0 40px;}
+    .grid{gap:20px;padding:36px 0 90px;}
+  }
 
   .head{padding:170px 0 60px;}
   .head h1{font-size:clamp(40px,7vw,96px);text-shadow:0 0 40px rgba(255,255,255,.12);}
@@ -136,18 +158,26 @@
 <nav>
   <div class="nav-inner">
     <a class="nav-logo" href="index.html" aria-label="Fortson">
-      <img src="https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515169694-EOY2P5J73JSPKMGKCWWG/Fortson+Pragmatica+Extended+Logo.png?format=750w" alt="FORTSON">
+      <img src="assets/img/fortson-logo.png" alt="FORTSON">
     </a>
     <div class="nav-links">
       <a href="index.html#profile">Builder Profile</a>
-      <a href="index.html#mind">The Mind</a>
+      <a href="index.html#mind">Conviction</a>
       <a href="index.html#philosophy">Philosophy</a>
       <a href="index.html#team">Team</a>
       <a href="index.html">← Back</a>
     </div>
-    <span class="mono-label" style="font-size:10px;">ARCHIVE — GEN I</span>
+    <span class="mono-label nav-status-label" style="font-size:10px;">ARCHIVE — GEN I</span>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="index.html#profile">Builder Profile</a>
+  <a href="index.html#mind">Conviction</a>
+  <a href="index.html#philosophy">Philosophy</a>
+  <a href="index.html#team">Team</a>
+</div>
 
 <div class="head wrap">
   <h1>Portfolio<br><span class="stroke">Gen I</span></h1>
@@ -175,34 +205,34 @@
 const ITEMS=[
  {n:"Hyperparam",s:"AI / Data Tooling",url:"https://hyperparam.app/",dark:false,
   d:"Captures your AI logs into storage you own and reads millions of traces straight from the browser — so you can see what your AI is actually doing.",
-  img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166184-CKIZLRZAEXIOKV7GVYSG/Hyperparam+web+logo+BW.png?format=750w"},
+  img:"assets/img/logo-hyperparam.png"},
  {n:"Hearvana",s:"Audio AI",url:"https://www.hearvana.ai/",dark:false,
   d:"Super-intelligent listening for humans and machines — unlocking a new layer of acoustic intelligence.",
-  img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166133-OJZ12KLJIDV1EO3BQMB1/hearvana%2Bweb%2Blogo%2BBW.png?format=750w"},
+  img:"assets/img/logo-hearvana.png"},
  {n:"Sturdy",s:"Data Infrastructure",url:"https://www.sturdy.ai/",dark:false,
   d:"The deterministic data layer for AI — every account conversation, one language pipeline, every AI system that needs it.",
-  img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166229-4ZBRRU0L7G4B9S1I02XL/Sturdy+Web+logo+BW.png?format=750w"},
+  img:"assets/img/logo-sturdy.png"},
  {n:"CueZen",s:"Health AI",url:"https://cuezen.com/",dark:false,
   d:"The AI-powered personalization engine for digital health, driving behavior change at nation scale.",
-  img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166153-6ATN8S8GJCTLL5J9FC3P/CueZen+Web+Port+LOGO+BW.png?format=750w"},
+  img:"assets/img/logo-cuezen.png"},
  {n:"Gierd",s:"E-Commerce Intelligence",url:"https://www.gierd.com/",dark:false,
   d:"The commerce intelligence platform that unifies marketplace sales, pricing, and supply into audit-ready financial data.",
-  img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166242-GAVIX4E0N4UO7Y54OEIT/Gierd+Web+logo+.png?format=750w"},
+  img:"assets/img/logo-gierd.png"},
  {n:"Certiv",s:"AI Security",url:"https://certiv.ai",dark:false,
   d:"AI agent assurance for endpoints — complete visibility and control over every AI agent across your organization.",
-  img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1773683838863-C3TUZDE5UKT4PCE2O5UQ/Certiv%252BWebsite%252BPortfolio%252BTile.png?format=750w"},
+  img:"assets/img/tile-certiv.png"},
  {n:"Ternion",s:"Stealth",url:null,dark:true,
   d:"Operating in stealth. Details sealed.",
-  img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/3984fa5c-9778-455e-96a6-8c52db95f409/Ternion+Stealth.png?format=750w"},
+  img:"assets/img/tile-ternion.png"},
  {n:"Trinity Labs",s:"Stealth",url:null,dark:true,
   d:"Operating in stealth. Details sealed.",
-  img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/62089b82-233e-4d27-ac9e-2b871cb7da5b/Trinity+Labs.png?format=750w"},
+  img:"assets/img/tile-trinity.png"},
  {n:"Stealth",s:"Insure-Tech",url:null,dark:true,
   d:"Insure-tech company operating in stealth. Details sealed.",
-  img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166167-KD6HV1XJKLZSAYD5HUE6/Stealth+Web+%28Insure-tech%29.png?format=750w"},
+  img:"assets/img/tile-stealth-insure.png"},
  {n:"Stealth",s:"AI Optimization",url:null,dark:true,
   d:"AI optimization company operating in stealth. Details sealed.",
-  img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166198-YYVFD1V5SXO1HLTZMZ5L/Stealth+Web+%28AI+Optimization%29.png?format=750w"},
+  img:"assets/img/tile-stealth-ai.png"},
  {n:"Company XI",s:"Classified",url:null,dark:true,
   d:"Gen I, file 011. Unannounced.",
   img:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><rect width='600' height='600' fill='%23000'/><text x='300' y='290' fill='%23e9e6df' font-family='monospace' font-size='34' text-anchor='middle' letter-spacing='8'>CLASSIFIED</text><text x='300' y='334' fill='%23777' font-family='monospace' font-size='16' text-anchor='middle' letter-spacing='5'>GEN I — 011</text></svg>"}
@@ -226,6 +256,10 @@ ITEMS.forEach((it,i)=>{
 });
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}}),{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const burger=document.getElementById('burger');
+const mMenu=document.getElementById('mobileMenu');
+burger.addEventListener('click',()=>{burger.classList.toggle('open');mMenu.classList.toggle('open');});
+mMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{burger.classList.remove('open');mMenu.classList.remove('open');}));
 </script>
 </body>
 </html>

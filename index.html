@@ -107,6 +107,30 @@
   .nav-status .dot{width:6px;height:6px;border-radius:50%;background:var(--ink);box-shadow:var(--glow);animation:pulse 2.4s infinite;}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
   @media(max-width:900px){.nav-links{display:none}.nav-status{display:none}}
+  /* ---------- mobile hamburger ---------- */
+  .burger{
+    display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;
+    padding:8px;z-index:1002;
+  }
+  .burger span{display:block;width:22px;height:2px;background:var(--ink);transition:transform .3s,opacity .3s;}
+  .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .burger.open span:nth-child(2){opacity:0;}
+  .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  @media(max-width:900px){.burger{display:flex;}}
+  .mobile-menu{
+    position:fixed;inset:0;z-index:999;background:rgba(4,4,4,.97);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    display:flex;flex-direction:column;justify-content:center;padding:0 32px;gap:6px;
+    opacity:0;pointer-events:none;transition:opacity .3s;
+  }
+  .mobile-menu.open{opacity:1;pointer-events:auto;}
+  .mobile-menu a{
+    font-family:var(--ext);font-stretch:125%;font-weight:800;text-transform:uppercase;
+    font-size:clamp(26px,7vw,40px);color:var(--ink);padding:10px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .mobile-menu a .no{font-family:var(--mono);font-weight:400;font-size:11px;color:var(--ink-faint);letter-spacing:.3em;display:block;margin-bottom:2px;}
+  .mobile-menu .mm-foot{margin-top:30px;font-size:10px;letter-spacing:.24em;color:var(--ink-faint);text-transform:uppercase;font-family:var(--mono);}
 
   /* ---------- hero ---------- */
   header{
@@ -355,6 +379,29 @@
     display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:60px;
     font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);
   }
+
+  /* ---------- small screens ---------- */
+  @media(max-width:600px){
+    section{padding:70px 0;}
+    .wrap{padding:0 20px;}
+    .boot{min-height:70px;margin-bottom:28px;font-size:11.5px;}
+    .hero-h1 .dim-line{margin-left:28px;}
+    .hero-inner{padding-top:96px;}
+    .sec-head{gap:12px;}
+    .vector-tab{padding:13px 14px;font-size:10px;letter-spacing:.16em;}
+    .radar-box{padding:14px;}
+    .radar-caption{flex-direction:column;gap:5px;}
+    .brain-fig{padding:16px;}
+    .dot-strip{height:230px;}
+    .dot-glow{width:160px;height:78px;bottom:calc(50% + 20px);}
+    .dot-glow .stealth-txt{font-size:16px;padding-bottom:16px;}
+    .strip-dot .dnum{font-size:8px;}
+    .strip-readout{font-size:9px;letter-spacing:.16em;}
+    .philo{gap:34px;}
+    .team-grid{gap:18px;}
+    .foot-top{margin-bottom:44px;}
+    .strip-sec .sec-sub{display:none;}
+  }
 </style>
 </head>
 <body>
@@ -373,19 +420,29 @@
 <nav>
   <div class="nav-inner">
     <a class="nav-logo" href="#top" aria-label="Fortson">
-      <img src="https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515169694-EOY2P5J73JSPKMGKCWWG/Fortson+Pragmatica+Extended+Logo.png?format=750w" alt="FORTSON">
+      <img src="assets/img/fortson-logo.png" alt="FORTSON">
     </a>
     <div class="nav-links">
       <a href="#profile">Builder Profile</a>
-      <a href="#mind">The Mind</a>
+      <a href="#mind">Conviction</a>
       <a href="#portfolio">Portfolio</a>
       <a href="#philosophy">Philosophy</a>
       <a href="#team">Team</a>
       <a href="portfolio.html">Full&nbsp;Portfolio&nbsp;→</a>
     </div>
     <div class="nav-status"><span class="dot"></span> SYS.ONLINE — WA, US</div>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#profile"><span class="no">01</span>Builder Profile</a>
+  <a href="#mind"><span class="no">03</span>Conviction</a>
+  <a href="#portfolio"><span class="no">04</span>Portfolio</a>
+  <a href="#philosophy"><span class="no">05</span>Philosophy</a>
+  <a href="#team"><span class="no">06</span>Team</a>
+  <a href="portfolio.html"><span class="no">→</span>Full Portfolio</a>
+  <div class="mm-foot">FORTSON® — VENTURE CAPITAL / WA, US</div>
+</div>
 
 <header id="top">
   <div class="hero-grid"></div>
@@ -435,46 +492,11 @@
   </div>
 </section>
 
-<!-- ============ THE MIND ============ -->
-<section id="mind" class="brain-sec">
+<!-- ============ PARAMETERS ============ -->
+<section id="parameters">
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="sec-num">[ 02 ]</span>
-      <h2 class="sec-title">The Mind of a Builder</h2>
-    </div>
-    <div class="rule-strong reveal"></div>
-    <div class="brain-layout">
-      <div class="brain-fig frame reveal"><span class="tick-b"></span>
-        <span class="fig-label">FIG. 02 — COMPLEX SYSTEM</span>
-        <span class="fig-label2">SUBJECT: FOUNDER / SIGNAL NETWORK</span>
-        <svg id="brainSvg" viewBox="0 0 640 520" xmlns="http://www.w3.org/2000/svg" aria-label="Glowing neural network figure"></svg>
-      </div>
-      <div class="brain-copy reveal">
-        <h3>Founder first.<br><span class="stroke">Idea second.<br>Inflection third.</span></h3>
-        <div class="order-blocks">
-          <div class="order-block">
-            <span class="order-num">01 THE FOUNDER</span>
-            <p>The <b>single greatest determinant</b> of success or failure. Before the deck, before the market, we underwrite the human: their psychology, their resilience, their nonlinear experience.</p>
-          </div>
-          <div class="order-block">
-            <span class="order-num">02 THE IDEA</span>
-            <p>Then the insight. The kind that only comes from <b>ridiculously deep domain expertise</b>. Contrarian, specific, and earned.</p>
-          </div>
-          <div class="order-block">
-            <span class="order-num">03 THE INFLECTION</span>
-            <p>Then the timing. A <b>market at its turning point</b>, where conviction compounds into velocity, entered before consensus arrives.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ PARAMETERS ============ -->
-<section id="parameters" style="padding-top:40px;">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="sec-num">[ 03 ]</span>
       <h2 class="sec-title">Fund Metrics</h2>
     </div>
     <div class="params reveal">
@@ -506,6 +528,42 @@
     </div>
   </div>
 </section>
+
+<!-- ============ THE MIND ============ -->
+<section id="mind" class="brain-sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">[ 03 ]</span>
+      <h2 class="sec-title">The Order of Conviction</h2>
+    </div>
+    <div class="rule-strong reveal"></div>
+    <div class="brain-layout">
+      <div class="brain-fig frame reveal"><span class="tick-b"></span>
+        <span class="fig-label">FIG. 02 — COMPLEX SYSTEM</span>
+        <span class="fig-label2">SUBJECT: FOUNDER / SIGNAL NETWORK</span>
+        <svg id="brainSvg" viewBox="0 0 640 520" xmlns="http://www.w3.org/2000/svg" aria-label="Glowing neural network figure"></svg>
+      </div>
+      <div class="brain-copy reveal">
+        <h3>Founder first.<br><span class="stroke">Idea second.<br>Inflection third.</span></h3>
+        <div class="order-blocks">
+          <div class="order-block">
+            <span class="order-num">01 THE FOUNDER</span>
+            <p>The <b>single greatest determinant</b> of success or failure. Before the deck, before the market, we underwrite the human: their psychology, their resilience, their nonlinear experience.</p>
+          </div>
+          <div class="order-block">
+            <span class="order-num">02 THE IDEA</span>
+            <p>Then the insight. The kind that only comes from <b>ridiculously deep domain expertise</b>. Contrarian, specific, and earned.</p>
+          </div>
+          <div class="order-block">
+            <span class="order-num">03 THE INFLECTION</span>
+            <p>Then the timing. A <b>market at its turning point</b>, where conviction compounds into velocity, entered before consensus arrives.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- ============ PORTFOLIO STRIP ============ -->
 <section id="portfolio" class="strip-sec">
@@ -590,13 +648,19 @@
 </footer>
 
 <script>
+/* ============ mobile menu ============ */
+const burger=document.getElementById('burger');
+const mMenu=document.getElementById('mobileMenu');
+burger.addEventListener('click',()=>{burger.classList.toggle('open');mMenu.classList.toggle('open');});
+mMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{burger.classList.remove('open');mMenu.classList.remove('open');}));
+
 /* ============ reveal on scroll ============ */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
 /* ============ boot typewriter + scroll arrows ============ */
 const bootEl=document.getElementById('boot');
-const bootLine="> boot fortson_os --quiet";
+const bootLine="> boot fortson_os";
 let ci=0,typed="",arrows=0,arrowMax=0;
 function type(){
   if(ci<bootLine.length){
@@ -811,12 +875,12 @@ document.querySelectorAll('[data-count]').forEach(elm=>{
 
 /* ============ dot strip ============ */
 const COMPANIES=[
- {n:"HYPERPARAM",img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166184-CKIZLRZAEXIOKV7GVYSG/Hyperparam+web+logo+BW.png?format=500w"},
- {n:"STURDY",img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166229-4ZBRRU0L7G4B9S1I02XL/Sturdy+Web+logo+BW.png?format=500w"},
- {n:"CUEZEN",img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166153-6ATN8S8GJCTLL5J9FC3P/CueZen+Web+Port+LOGO+BW.png?format=500w"},
- {n:"HEARVANA",img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166133-OJZ12KLJIDV1EO3BQMB1/hearvana%2Bweb%2Blogo%2BBW.png?format=500w"},
- {n:"CERTIV",img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1773683838863-C3TUZDE5UKT4PCE2O5UQ/Certiv%252BWebsite%252BPortfolio%252BTile.png?format=500w"},
- {n:"GIERD",img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166242-GAVIX4E0N4UO7Y54OEIT/Gierd+Web+logo+.png?format=500w"},
+ {n:"HYPERPARAM",img:"assets/img/logo-hyperparam.png"},
+ {n:"STURDY",img:"assets/img/logo-sturdy.png"},
+ {n:"CUEZEN",img:"assets/img/logo-cuezen.png"},
+ {n:"HEARVANA",img:"assets/img/logo-hearvana.png"},
+ {n:"CERTIV",img:"assets/img/tile-certiv.png"},
+ {n:"GIERD",img:"assets/img/logo-gierd.png"},
  {n:"TERNION [STEALTH]",txt:"STEALTH"},
  {n:"TRINITY LABS",txt:"STEALTH"},
  {n:"STEALTH — INSURE-TECH",txt:"STEALTH"},
@@ -864,30 +928,31 @@ strip.addEventListener('mousemove',e=>{
   showAt(idx);
 });
 strip.addEventListener('mouseleave',()=>{card.classList.remove('show');dots.forEach(d=>d.classList.remove('hot'));lastIdx=-1;});
-/* touch support */
-strip.addEventListener('touchmove',e=>{
-  const t=e.touches[0];const r=strip.getBoundingClientRect();
-  const px=t.clientX-r.left;
-  const frac=(px/r.width-0.04)/0.92;
-  const idx=Math.max(0,Math.min(COMPANIES.length-1,Math.round(frac*(COMPANIES.length-1))));
-  showAt(idx);
-},{passive:true});
+/* touch devices: auto-play loop through the companies when strip is visible */
+if(window.matchMedia('(hover: none)').matches){
+  let ai=-1,playing=false,playT=null;
+  function step(){ai=(ai+1)%COMPANIES.length;showAt(ai);}
+  new IntersectionObserver(es=>{
+    if(es[0].isIntersecting&&!playing){playing=true;step();playT=setInterval(step,1600);}
+    else if(!es[0].isIntersecting&&playing){playing=false;clearInterval(playT);}
+  },{threshold:.4}).observe(strip);
+}
 
 /* ============ team ============ */
 const TEAM=[
- {n:"Cole Younger",r:"Founder & Managing Partner",pos:"50% 42%",img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515168689-72JQ5U3D4FZ390ZISB6I/COLE+WEB+PHOTO+w+NOISE.png?format=750w",
+ {n:"Cole Younger",r:"Founder & Managing Partner",pos:"50% 42%",img:"assets/img/team-cole.png",
   b:"Cole Younger is the founder and Managing Partner of Fortson®. He studied finance and engineering at the University of Washington, a combination that helped shape his qualitative and quantitative approach to venture investing. Before founding Fortson, Cole spent much of his career in venture, working closely with entrepreneurs at the earliest stages. These experiences shaped his respect for the entrepreneurial journey and directly influenced how he partners with founders today. Living in the Pacific Northwest, he spends his free time fly fishing, gardening, and cultivating the perfect flower. Of all his accomplishments, the one he is most proud of is being married to his wife and building a life with her.",
   li:"https://www.linkedin.com/in/cole-younger-32717893/"},
- {n:"David Gorter",r:"Partner",img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515168716-E9XJHNM1HCCP55QDOXMH/Sid+Web+Photo+3.jpg?format=750w",
+ {n:"David Gorter",r:"Partner",img:"assets/img/team-david.jpg",
   b:"David Gorter is a Partner at Fortson® and a member of the investment committee. He started his first business right out of college and has been a lifelong entrepreneur ever since. A formative expedition through Kenya, including climbing Mt. Kenya and traveling across East Africa, helped shape his resilience and long-term perspective on venture investing. He's proud to have served on his alma mater's board for 16 years and is a firm believer in the value of education.",
   li:null},
- {n:"Melissa Alexander",r:"Chief of Staff",pos:"50% 22%",img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515168698-JMHQUDQBZPCDS07EB7TF/Melissa+Web+photo+BW+w+Noise.png?format=750w",
+ {n:"Melissa Alexander",r:"Chief of Staff",pos:"50% 22%",img:"assets/img/team-melissa.png",
   b:"Melissa is Fortson's Chief of Staff. She holds a degree in Communication with a background spanning marketing, media planning, and operations. She specializes in execution and is a world-class project manager. Outside of work, she is an avid reader, with a particular interest in apologetics.",
   li:"https://www.linkedin.com/in/melissa-a-50b628189/"},
- {n:"Cade Younger",r:"Senior Associate",img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515168707-2WXQ4MPFEQKVM3R2GGD2/Cade+Web+Photo+w+Noise+BW.png?format=750w",
+ {n:"Cade Younger",r:"Senior Associate",img:"assets/img/team-cade.png",
   b:"Cade is a Senior Associate at Fortson VC, where he focuses on sourcing new investment opportunities, supporting portfolio companies, and contributing to investment decisions across early-stage software and AI businesses. He works closely with founders from initial evaluation through post-investment strategy, partnering on growth, positioning, and long-term value creation. Prior to joining Fortson, he worked in middle-market private equity and venture capital, as well as at a data-driven technology company. Outside of investing, Cade enjoys perfecting homemade pizzas, fly fishing in the Pacific Northwest, and staying competitive through sports, drawing from his background as a former collegiate football player.",
   li:"https://www.linkedin.com/in/cade-younger-08887b15b/"},
- {n:"Levi Younger",r:"Brand & Community",img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515168725-4D1F1AZOJ0D34D8ZRGCS/LEVI+WEB+PHOTO+FINAL.jpg?format=750w",
+ {n:"Levi Younger",r:"Brand & Community",img:"assets/img/team-levi.jpg",
   b:"Levi is the newest member of Fortson®. His work sits at the intersection of visuals, community, and brand. Outside of the firm, he is actively building and scaling an e-commerce company in his spare time, and he enjoys fitness, graphic design, and Settlers of Catan.",
   li:"https://www.linkedin.com/in/imleviyounger/"}
 ];
