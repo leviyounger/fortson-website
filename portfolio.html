@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — FORTSON</title>
+<meta name="description" content="FORTSON portfolio — Gen I founding teams and companies.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62.5..125,100..900&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#040404;--bg-1:#0b0b0c;--bg-2:#121214;
+    --ink:#e9e6df;--ink-dim:#8f8c83;--ink-faint:#55534d;
+    --line:rgba(233,230,223,.13);--line-strong:rgba(233,230,223,.28);
+    --glow:0 0 10px rgba(255,255,255,.45), 0 0 30px rgba(255,255,255,.18);
+    --glow-soft:0 0 24px rgba(255,255,255,.10);
+    --ext:'Archivo',sans-serif;--mono:'IBM Plex Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:
+      radial-gradient(1100px 700px at 80% -10%, #19191b 0%, transparent 60%),
+      linear-gradient(180deg,var(--bg-1) 0%, var(--bg-0) 45%, #08080a 75%, var(--bg-0) 100%);
+    background-color:var(--bg-0);
+    color:var(--ink);font-family:var(--mono);font-size:15px;line-height:1.7;overflow-x:hidden;
+  }
+  ::selection{background:var(--ink);color:var(--bg-0);}
+  body::before{
+    content:"";position:fixed;inset:-50%;z-index:2000;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity:.05;animation:grain 6s steps(8) infinite;
+  }
+  @keyframes grain{
+    0%,100%{transform:translate(0,0)}12%{transform:translate(-2%,1%)}25%{transform:translate(1%,-2%)}
+    37%{transform:translate(-1%,2%)}50%{transform:translate(2%,1%)}62%{transform:translate(-2%,-1%)}
+    75%{transform:translate(1%,2%)}87%{transform:translate(2%,-2%)}
+  }
+  body::after{
+    content:"";position:fixed;inset:0;z-index:1999;pointer-events:none;
+    background:repeating-linear-gradient(0deg,rgba(255,255,255,.014) 0 1px,transparent 1px 3px);
+  }
+  h1,h2,.ext{font-family:var(--ext);font-stretch:125%;font-weight:800;letter-spacing:.01em;text-transform:uppercase;line-height:1.05;}
+  a{color:inherit;text-decoration:none;}
+  img{display:block;max-width:100%;}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 28px;}
+  .mono-label{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-dim);}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(5,5,5,.72);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
+  .nav-inner{max-width:1280px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .nav-logo img{height:16px;width:auto;filter:brightness(0) invert(1);}
+  .nav-links{display:flex;gap:34px;align-items:center;}
+  .nav-links a{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-dim);transition:color .25s,text-shadow .25s;}
+  .nav-links a::before{content:"/ ";color:var(--ink-faint);}
+  .nav-links a:hover{color:var(--ink);text-shadow:var(--glow);}
+  @media(max-width:900px){.nav-links{display:none}}
+
+  .head{padding:170px 0 60px;}
+  .head h1{font-size:clamp(40px,7vw,96px);text-shadow:0 0 40px rgba(255,255,255,.12);}
+  .head h1 .stroke{color:transparent;-webkit-text-stroke:1px var(--line-strong);}
+  .head-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:26px;
+    font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-dim);}
+  .rule-strong{height:1px;background:var(--line-strong);box-shadow:0 0 8px rgba(255,255,255,.15);margin-top:22px;}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;padding:50px 0 120px;}
+  @media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:600px){.grid{grid-template-columns:1fr;}}
+
+  .cardp{position:relative;transition:transform .35s;display:block;}
+  .cardp:hover{transform:translateY(-6px);}
+  .sq{
+    aspect-ratio:1/1;position:relative;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    background:#fff;
+    box-shadow:0 18px 50px rgba(0,0,0,.5);
+  }
+  .sq.dark{background:#000;}
+  .sq img{width:100%;height:100%;object-fit:contain;filter:grayscale(1);}
+  /* satin glass overlay */
+  .glass{
+    position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:linear-gradient(118deg, rgba(255,255,255,.15) 0%, rgba(255,255,255,.04) 26%, rgba(255,255,255,.10) 47%, rgba(255,255,255,.02) 60%, rgba(255,255,255,.07) 100%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.28), inset 0 -1px 0 rgba(255,255,255,.05);
+    overflow:hidden;
+  }
+  .glass::before{
+    content:"";position:absolute;top:-20%;bottom:-20%;left:-70%;width:45%;
+    background:linear-gradient(105deg, transparent, rgba(255,255,255,.38), transparent);
+    transform:skewX(-18deg);
+    transition:left .75s ease;
+  }
+  .cardp:hover .glass::before{left:135%;}
+  /* hover description */
+  .desc{
+    position:absolute;inset:0;z-index:3;display:flex;align-items:flex-end;
+    padding:20px;
+    background:linear-gradient(180deg, rgba(4,4,4,0) 18%, rgba(4,4,4,.85) 80%);
+    backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+    opacity:0;transition:opacity .35s ease;
+    font-size:12px;line-height:1.65;color:var(--ink);letter-spacing:.02em;
+  }
+  .cardp:hover .desc{opacity:1;}
+  .stamp{
+    margin-top:16px;text-align:center;
+    font-family:var(--mono);font-weight:600;font-size:12px;
+    letter-spacing:.3em;text-transform:uppercase;color:#e9e6df;
+    -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.45' numOctaves='3' seed='4'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.6 -0.22'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+    -webkit-mask-size:220px;
+    mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.45' numOctaves='3' seed='4'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.6 -0.22'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+    mask-size:220px;
+    text-shadow:0 0 14px rgba(255,255,255,.18);
+  }
+  .cardp:nth-child(odd) .stamp{transform:rotate(-1.3deg);}
+  .cardp:nth-child(even) .stamp{transform:rotate(1deg);}
+  .cardp .meta{
+    display:flex;justify-content:center;margin-top:10px;
+    font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-faint);
+  }
+
+  footer{border-top:1px solid var(--line);padding:70px 0 40px;overflow:hidden;}
+  .giant{
+    font-family:var(--ext);font-stretch:125%;font-weight:800;text-transform:uppercase;
+    font-size:clamp(70px,14.5vw,220px);line-height:.9;text-align:center;
+    color:transparent;-webkit-text-stroke:1px rgba(233,230,223,.22);
+    text-shadow:0 0 60px rgba(255,255,255,.06);user-select:none;white-space:nowrap;
+  }
+  .foot-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:56px;
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);}
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease;}
+  .reveal.on{opacity:1;transform:none;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html" aria-label="Fortson">
+      <img src="https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515169694-EOY2P5J73JSPKMGKCWWG/Fortson+Pragmatica+Extended+Logo.png?format=750w" alt="FORTSON">
+    </a>
+    <div class="nav-links">
+      <a href="index.html#profile">Builder Profile</a>
+      <a href="index.html#mind">The Mind</a>
+      <a href="index.html#philosophy">Philosophy</a>
+      <a href="index.html#team">Team</a>
+      <a href="index.html">← Back</a>
+    </div>
+    <span class="mono-label" style="font-size:10px;">ARCHIVE — GEN I</span>
+  </div>
+</nav>
+
+<div class="head wrap">
+  <h1>Portfolio<br><span class="stroke">Gen I</span></h1>
+  <div class="head-meta">
+    <span>011 COMPANIES ON FILE</span>
+    <span>PRE-SEED → SEED+</span>
+    <span>WESTERN UNITED STATES</span>
+  </div>
+  <div class="rule-strong"></div>
+</div>
+
+<div class="wrap grid" id="grid"></div>
+
+<footer>
+  <div class="wrap">
+    <div class="giant">FORTSON</div>
+    <div class="foot-bottom">
+      <span>© 2026 FORTSON MANAGEMENT COMPANY, LLC — ALL RIGHTS RESERVED</span>
+      <span>WA, UNITED STATES</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const ITEMS=[
+ {n:"Hyperparam",s:"AI / Data Tooling",url:"https://hyperparam.app/",dark:false,
+  d:"Captures your AI logs into storage you own and reads millions of traces straight from the browser — so you can see what your AI is actually doing.",
+  img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166184-CKIZLRZAEXIOKV7GVYSG/Hyperparam+web+logo+BW.png?format=750w"},
+ {n:"Hearvana",s:"Audio AI",url:"https://www.hearvana.ai/",dark:false,
+  d:"Super-intelligent listening for humans and machines — unlocking a new layer of acoustic intelligence.",
+  img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166133-OJZ12KLJIDV1EO3BQMB1/hearvana%2Bweb%2Blogo%2BBW.png?format=750w"},
+ {n:"Sturdy",s:"Data Infrastructure",url:"https://www.sturdy.ai/",dark:false,
+  d:"The deterministic data layer for AI — every account conversation, one language pipeline, every AI system that needs it.",
+  img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166229-4ZBRRU0L7G4B9S1I02XL/Sturdy+Web+logo+BW.png?format=750w"},
+ {n:"CueZen",s:"Health AI",url:"https://cuezen.com/",dark:false,
+  d:"The AI-powered personalization engine for digital health, driving behavior change at nation scale.",
+  img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166153-6ATN8S8GJCTLL5J9FC3P/CueZen+Web+Port+LOGO+BW.png?format=750w"},
+ {n:"Gierd",s:"E-Commerce Intelligence",url:"https://www.gierd.com/",dark:false,
+  d:"The commerce intelligence platform that unifies marketplace sales, pricing, and supply into audit-ready financial data.",
+  img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166242-GAVIX4E0N4UO7Y54OEIT/Gierd+Web+logo+.png?format=750w"},
+ {n:"Certiv",s:"AI Security",url:"https://certiv.ai",dark:false,
+  d:"AI agent assurance for endpoints — complete visibility and control over every AI agent across your organization.",
+  img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1773683838863-C3TUZDE5UKT4PCE2O5UQ/Certiv%252BWebsite%252BPortfolio%252BTile.png?format=750w"},
+ {n:"Ternion",s:"Stealth",url:null,dark:true,
+  d:"Operating in stealth. Details sealed.",
+  img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/3984fa5c-9778-455e-96a6-8c52db95f409/Ternion+Stealth.png?format=750w"},
+ {n:"Trinity Labs",s:"Stealth",url:null,dark:true,
+  d:"Operating in stealth. Details sealed.",
+  img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/62089b82-233e-4d27-ac9e-2b871cb7da5b/Trinity+Labs.png?format=750w"},
+ {n:"Stealth",s:"Insure-Tech",url:null,dark:true,
+  d:"Insure-tech company operating in stealth. Details sealed.",
+  img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166167-KD6HV1XJKLZSAYD5HUE6/Stealth+Web+%28Insure-tech%29.png?format=750w"},
+ {n:"Stealth",s:"AI Optimization",url:null,dark:true,
+  d:"AI optimization company operating in stealth. Details sealed.",
+  img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166198-YYVFD1V5SXO1HLTZMZ5L/Stealth+Web+%28AI+Optimization%29.png?format=750w"},
+ {n:"Company XI",s:"Classified",url:null,dark:true,
+  d:"Gen I, file 011. Unannounced.",
+  img:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><rect width='600' height='600' fill='%23000'/><text x='300' y='290' fill='%23e9e6df' font-family='monospace' font-size='34' text-anchor='middle' letter-spacing='8'>CLASSIFIED</text><text x='300' y='334' fill='%23777' font-family='monospace' font-size='16' text-anchor='middle' letter-spacing='5'>GEN I — 011</text></svg>"}
+];
+const grid=document.getElementById('grid');
+ITEMS.forEach((it,i)=>{
+  const no=String(i+1).padStart(3,'0');
+  const inner=`
+    <div class="sq${it.dark?' dark':''}">
+      <img src="${it.img}" alt="${it.n}" loading="lazy">
+      <div class="glass"></div>
+      <div class="desc">${it.d}</div>
+    </div>
+    <div class="stamp">${it.s}</div>
+    <div class="meta"><span>FILE ${no}</span></div>`;
+  const el=document.createElement(it.url?'a':'div');
+  if(it.url){el.href=it.url;el.target="_blank";el.rel="noopener";}
+  el.className='cardp reveal';
+  el.innerHTML=inner;
+  grid.appendChild(el);
+});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

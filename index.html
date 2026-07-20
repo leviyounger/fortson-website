@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORTSON — Authentic, Enduring, Shoulder to Shoulder</title>
+<meta name="description" content="Partnering with unconventional thinkers and founders to build enduring companies through deep, data-driven insights.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62.5..125,100..900&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#040404;
+    --bg-1:#0b0b0c;
+    --bg-2:#121214;
+    --ink:#e9e6df;
+    --ink-dim:#8f8c83;
+    --ink-faint:#55534d;
+    --line:rgba(233,230,223,.13);
+    --line-strong:rgba(233,230,223,.28);
+    --glow:0 0 10px rgba(255,255,255,.45), 0 0 30px rgba(255,255,255,.18);
+    --glow-soft:0 0 24px rgba(255,255,255,.10);
+    --ext:'Archivo',sans-serif;
+    --mono:'IBM Plex Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:
+      radial-gradient(1200px 800px at 70% -10%, #1a1a1c 0%, transparent 60%),
+      radial-gradient(900px 700px at 0% 40%, #101012 0%, transparent 55%),
+      linear-gradient(180deg,var(--bg-1) 0%, var(--bg-0) 40%, #08080a 70%, var(--bg-0) 100%);
+    background-color:var(--bg-0);
+    color:var(--ink);
+    font-family:var(--mono);
+    font-size:15px;
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--ink);color:var(--bg-0);}
+
+  /* ---------- film grain + scanlines ---------- */
+  body::before{
+    content:"";position:fixed;inset:-50%;z-index:2000;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity:.05;animation:grain 6s steps(8) infinite;
+  }
+  @keyframes grain{
+    0%,100%{transform:translate(0,0)}12%{transform:translate(-2%,1%)}25%{transform:translate(1%,-2%)}
+    37%{transform:translate(-1%,2%)}50%{transform:translate(2%,1%)}62%{transform:translate(-2%,-1%)}
+    75%{transform:translate(1%,2%)}87%{transform:translate(2%,-2%)}
+  }
+  body::after{
+    content:"";position:fixed;inset:0;z-index:1999;pointer-events:none;
+    background:repeating-linear-gradient(0deg,rgba(255,255,255,.014) 0 1px,transparent 1px 3px);
+  }
+
+  h1,h2,h3,.ext{
+    font-family:var(--ext);
+    font-stretch:125%;
+    font-weight:800;
+    letter-spacing:.01em;
+    text-transform:uppercase;
+    line-height:1.05;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{display:block;max-width:100%;}
+
+  .wrap{max-width:1280px;margin:0 auto;padding:0 28px;}
+  .mono-label{
+    font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--ink-dim);
+  }
+  .rule{height:1px;background:var(--line);}
+  .rule-strong{height:1px;background:var(--line-strong);box-shadow:0 0 8px rgba(255,255,255,.15);}
+
+  /* corner-tick frame */
+  .frame{position:relative;}
+  .frame::before,.frame::after,
+  .frame .tick-b::before,.frame .tick-b::after{
+    content:"";position:absolute;width:14px;height:14px;border:1px solid var(--line-strong);
+  }
+  .frame::before{top:-1px;left:-1px;border-right:none;border-bottom:none;}
+  .frame::after{top:-1px;right:-1px;border-left:none;border-bottom:none;}
+  .frame .tick-b::before{bottom:-1px;left:-1px;border-right:none;border-top:none;}
+  .frame .tick-b::after{bottom:-1px;right:-1px;border-left:none;border-top:none;}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    background:rgba(5,5,5,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1280px;margin:0 auto;padding:0 28px;
+    display:flex;align-items:center;justify-content:space-between;height:64px;
+  }
+  .nav-logo img{height:16px;width:auto;filter:brightness(0) invert(1);}
+  .nav-links{display:flex;gap:34px;align-items:center;}
+  .nav-links a{
+    font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-dim);
+    transition:color .25s, text-shadow .25s;position:relative;
+  }
+  .nav-links a::before{content:"/ ";color:var(--ink-faint);}
+  .nav-links a:hover{color:var(--ink);text-shadow:var(--glow);}
+  .nav-status{font-size:10px;letter-spacing:.2em;color:var(--ink-faint);display:flex;align-items:center;gap:8px;}
+  .nav-status .dot{width:6px;height:6px;border-radius:50%;background:var(--ink);box-shadow:var(--glow);animation:pulse 2.4s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+  @media(max-width:900px){.nav-links{display:none}.nav-status{display:none}}
+
+  /* ---------- hero ---------- */
+  header{
+    min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center;
+    overflow:hidden;
+  }
+  .hero-grid{
+    position:absolute;inset:0;pointer-events:none;
+    background-image:
+      linear-gradient(var(--line) 1px,transparent 1px),
+      linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:72px 72px;
+    mask-image:radial-gradient(ellipse 90% 80% at 50% 45%,black 0%,transparent 75%);
+    -webkit-mask-image:radial-gradient(ellipse 90% 80% at 50% 45%,black 0%,transparent 75%);
+    opacity:.5;
+  }
+  .hero-inner{position:relative;z-index:2;padding-top:120px;padding-bottom:80px;}
+  .boot{
+    font-size:12.5px;color:var(--ink-dim);min-height:88px;letter-spacing:.04em;
+    margin-bottom:42px;white-space:pre-line;
+  }
+  .boot .ok{color:var(--ink);text-shadow:var(--glow);}
+  .boot .darr{
+    display:inline-block;transform:rotate(90deg);
+    width:16px;margin-right:10px;color:var(--ink-faint);
+    text-shadow:0 0 8px rgba(255,255,255,.12);
+  }
+  .cursor{
+    display:inline-block;width:9px;height:16px;background:var(--ink);vertical-align:-2px;
+    box-shadow:var(--glow);animation:blink 1s steps(1) infinite;
+  }
+  @keyframes blink{50%{opacity:0}}
+  .hero-h1{
+    font-size:clamp(38px,6.4vw,92px);
+    text-shadow:0 0 40px rgba(255,255,255,.12);
+    margin-bottom:34px;
+  }
+  .hero-h1 .dim-line{
+    color:transparent;-webkit-text-stroke:1px var(--line-strong);
+    display:block;margin-top:14px;margin-left:clamp(48px,14vw,220px);
+  }
+  @media(min-width:1240px){
+    .hero-h1{margin-left:calc(-1 * min(144px,(100vw - 1224px) / 2));}
+  }
+  .hero-meta{
+    position:absolute;bottom:32px;left:0;right:0;z-index:2;
+  }
+  .hero-meta .wrap{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;}
+  .hero-meta .mono-label{font-size:10px;}
+  .scroll-hint{display:flex;align-items:center;gap:10px;color:var(--ink-faint);font-size:10px;letter-spacing:.3em;text-transform:uppercase;}
+  .scroll-hint .bar{width:1px;height:38px;background:linear-gradient(180deg,var(--ink),transparent);animation:drip 2s infinite;}
+  @keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+  /* ---------- section scaffolding ---------- */
+  section{padding:110px 0;position:relative;}
+  .sec-head{display:flex;align-items:baseline;gap:24px;margin-bottom:14px;flex-wrap:wrap;}
+  .sec-num{font-family:var(--mono);font-size:12px;color:var(--ink-faint);letter-spacing:.2em;}
+  .sec-title{font-size:clamp(26px,3.6vw,48px);text-shadow:0 0 30px rgba(255,255,255,.1);}
+  .sec-sub{color:var(--ink-dim);font-size:13px;max-width:640px;margin-top:16px;}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s ease;}
+  .reveal.on{opacity:1;transform:none;}
+
+  /* ---------- builder profile / radar ---------- */
+  .bp-layout{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:center;margin-top:48px;}
+  @media(max-width:980px){.bp-layout{grid-template-columns:1fr;}}
+  .bp-copy p{color:var(--ink-dim);font-size:14px;margin-bottom:22px;}
+  .bp-copy p b{color:var(--ink);font-weight:500;}
+  .vector-tabs{display:flex;flex-direction:column;gap:0;border:1px solid var(--line);margin-top:34px;}
+  .vector-tab{
+    display:flex;align-items:center;justify-content:space-between;gap:14px;
+    padding:16px 18px;cursor:pointer;border-bottom:1px solid var(--line);
+    font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dim);
+    transition:all .3s;background:transparent;width:100%;font-family:var(--mono);border-left:none;border-right:none;border-top:none;text-align:left;
+  }
+  .vector-tab:last-child{border-bottom:none;}
+  .vector-tab .idx{color:var(--ink-faint);}
+  .vector-tab:hover{color:var(--ink);background:rgba(255,255,255,.03);}
+  .vector-tab.active{color:var(--ink);background:rgba(255,255,255,.05);text-shadow:var(--glow);}
+  .vector-tab.active .idx{color:var(--ink);}
+  .radar-box{position:relative;padding:26px;}
+  .radar-box svg{width:100%;height:auto;display:block;}
+  .radar-caption{
+    display:flex;justify-content:space-between;margin-top:14px;
+    font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-faint);
+  }
+  #axisReadout{color:var(--ink);text-shadow:var(--glow);min-height:16px;}
+
+  /* ---------- brain ---------- */
+  .brain-sec{background:linear-gradient(180deg,transparent, rgba(255,255,255,.018) 50%, transparent);}
+  .brain-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;margin-top:48px;}
+  @media(max-width:980px){.brain-layout{grid-template-columns:1fr;}}
+  .brain-fig{position:relative;padding:30px;overflow:hidden;}
+  .brain-fig svg{width:100%;height:auto;position:relative;z-index:2;}
+  .order-blocks{margin-top:36px;}
+  .order-block{border-top:1px solid var(--line);padding:22px 0;}
+  .order-block:last-child{border-bottom:1px solid var(--line);}
+  .order-num{
+    font-family:var(--mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--ink);text-shadow:var(--glow);display:block;margin-bottom:10px;
+  }
+  .order-block p{color:var(--ink-dim);font-size:13.5px;}
+  .order-block p b{color:var(--ink);font-weight:500;}
+  .fig-label{
+    position:absolute;top:12px;left:16px;font-size:10px;letter-spacing:.26em;color:var(--ink-faint);text-transform:uppercase;
+  }
+  .fig-label2{
+    position:absolute;bottom:12px;right:16px;font-size:10px;letter-spacing:.26em;color:var(--ink-faint);text-transform:uppercase;
+  }
+  .brain-copy h3{font-size:clamp(24px,3vw,40px);margin-bottom:8px;}
+  .brain-copy h3 .stroke{color:transparent;-webkit-text-stroke:1px var(--line-strong);}
+  .brain-copy p{color:var(--ink-dim);font-size:14px;margin-top:22px;}
+  .brain-copy p b{color:var(--ink);font-weight:500;}
+  .readouts{margin-top:34px;border:1px solid var(--line);}
+  .readout{
+    display:flex;justify-content:space-between;gap:14px;padding:12px 16px;
+    border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  }
+  .readout:last-child{border-bottom:none;}
+  .readout .k{color:var(--ink-faint);}
+  .readout .v{color:var(--ink);text-shadow:var(--glow);}
+
+  /* ---------- parameters ---------- */
+  .params{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:48px;}
+  @media(max-width:1100px){.params{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.params{grid-template-columns:1fr;}}
+  .param{background:var(--bg-0);padding:30px 26px 34px;position:relative;transition:background .3s;}
+  .param:hover{background:var(--bg-2);}
+  .param:hover .param-big{text-shadow:var(--glow);}
+  .param .mono-label{margin-bottom:18px;display:block;}
+  .param-big{font-family:var(--ext);font-stretch:125%;font-weight:800;font-size:clamp(20px,2vw,26px);text-transform:uppercase;line-height:1.15;transition:text-shadow .3s;}
+  .param p{color:var(--ink-dim);font-size:12.5px;margin-top:14px;}
+  .param p b{color:var(--ink);font-weight:500;}
+
+  /* ---------- dot strip / portfolio flash ---------- */
+  .strip-sec{padding-bottom:150px;}
+  .dot-strip{
+    position:relative;margin-top:70px;height:300px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    cursor:crosshair;
+  }
+  .strip-line{position:absolute;left:4%;right:4%;top:50%;height:1px;background:var(--line-strong);box-shadow:0 0 10px rgba(255,255,255,.12);}
+  .strip-dot{
+    position:absolute;top:50%;width:8px;height:8px;border-radius:50%;
+    background:var(--ink);transform:translate(-50%,-50%);
+    box-shadow:0 0 8px rgba(255,255,255,.6),0 0 22px rgba(255,255,255,.25);
+    transition:transform .2s;
+  }
+  .strip-dot.hot{transform:translate(-50%,-50%) scale(2.2);}
+  .strip-dot .dnum{
+    position:absolute;top:16px;left:50%;transform:translateX(-50%);
+    font-size:9px;letter-spacing:.2em;color:var(--ink-faint);
+  }
+  .dot-glow{
+    position:absolute;z-index:10;pointer-events:none;
+    width:230px;height:110px;
+    transform:translateX(-50%);
+    bottom:calc(50% + 26px);
+    display:flex;align-items:flex-end;justify-content:center;
+    opacity:0;transition:opacity .18s ease, left .22s ease;
+  }
+  .dot-glow.show{opacity:1;}
+  .dot-glow .halo{
+    position:absolute;inset:-38%;
+    background:radial-gradient(closest-side, rgba(255,255,255,.08), transparent 68%);
+  }
+  .dot-glow img{
+    position:relative;max-width:100%;max-height:100%;object-fit:contain;
+    filter:url(#whiteify) drop-shadow(0 0 10px rgba(255,255,255,.5));
+  }
+  .dot-glow .stealth-txt{
+    position:relative;font-family:var(--ext);font-stretch:125%;font-weight:800;
+    font-size:24px;letter-spacing:.16em;text-transform:uppercase;color:#e9e6df;
+    text-shadow:0 0 14px rgba(255,255,255,.6),0 0 44px rgba(255,255,255,.25);
+    padding-bottom:24px;
+  }
+  .strip-readout{
+    display:flex;justify-content:space-between;margin-top:18px;flex-wrap:wrap;gap:10px;
+    font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);
+  }
+  #stripName{color:var(--ink);text-shadow:var(--glow);}
+  .strip-cta{margin-top:56px;display:flex;justify-content:center;}
+  .btn{
+    display:inline-flex;align-items:center;gap:14px;
+    border:1px solid var(--line-strong);padding:16px 34px;
+    font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink);
+    transition:all .3s;position:relative;overflow:hidden;font-family:var(--mono);
+  }
+  .btn:hover{box-shadow:var(--glow-soft),inset 0 0 30px rgba(255,255,255,.05);text-shadow:var(--glow);border-color:var(--ink);}
+  .btn .arrow{transition:transform .3s;}
+  .btn:hover .arrow{transform:translateX(6px);}
+
+  /* ---------- philosophy ---------- */
+  .philo{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:48px;}
+  @media(max-width:900px){.philo{grid-template-columns:1fr;}}
+  .philo-block{border-top:1px solid var(--line-strong);padding-top:28px;}
+  .philo-block h3{font-size:clamp(18px,1.9vw,24px);margin-bottom:20px;}
+  .philo-block h3 .no{color:var(--ink-faint);font-family:var(--mono);font-weight:400;font-size:12px;letter-spacing:.2em;display:block;margin-bottom:12px;}
+  .philo-block p{color:var(--ink-dim);font-size:13.5px;margin-bottom:16px;}
+  .philo-block p b{color:var(--ink);font-weight:500;}
+
+  /* ---------- team ---------- */
+  .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:56px;}
+  @media(max-width:980px){.team-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:600px){.team-grid{grid-template-columns:1fr;}}
+  .member{border:1px solid var(--line);background:rgba(255,255,255,.015);transition:all .35s;}
+  .member:hover{border-color:var(--line-strong);box-shadow:var(--glow-soft);background:rgba(255,255,255,.03);}
+  .member .photo{position:relative;overflow:hidden;aspect-ratio:4/4.6;}
+  .member .photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.06);transition:transform .6s;}
+  .member .photo .bg-blur{
+    position:absolute;inset:0;object-fit:cover;
+    filter:grayscale(1) blur(16px) brightness(.85);transform:scale(1.15);
+  }
+  .member .photo .fg{position:relative;z-index:1;}
+  .member:hover .photo img{transform:scale(1.035);}
+  .member .photo::after{
+    content:"";position:absolute;left:0;right:0;top:-30%;height:26%;
+    background:linear-gradient(180deg,transparent,rgba(255,255,255,.14),transparent);
+    opacity:0;transition:opacity .2s;
+  }
+  .member:hover .photo::after{opacity:1;animation:scan 1.6s linear infinite;}
+  @keyframes scan{from{top:-30%}to{top:110%}}
+  .member .info{padding:20px 20px 24px;border-top:1px solid var(--line);}
+  .member .name{font-family:var(--ext);font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:17px;}
+  .member .role{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-dim);margin-top:6px;}
+  .member .bio{font-size:12px;color:var(--ink-dim);margin-top:14px;max-height:0;overflow:hidden;transition:max-height .6s ease;}
+  .member.open .bio,{max-height:600px;}
+  .member.open .bio{max-height:600px;}
+  .member .more{
+    margin-top:12px;font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-faint);
+    cursor:pointer;display:inline-block;transition:color .25s;
+  }
+  .member .more:hover{color:var(--ink);text-shadow:var(--glow);}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--line);padding:80px 0 40px;position:relative;overflow:hidden;}
+  .foot-top{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-bottom:70px;}
+  .foot-top .mono-label{line-height:2.2;}
+  .giant{
+    font-family:var(--ext);font-stretch:125%;font-weight:800;text-transform:uppercase;
+    font-size:clamp(70px,14.5vw,220px);line-height:.9;text-align:center;
+    color:transparent;-webkit-text-stroke:1px rgba(233,230,223,.22);
+    text-shadow:0 0 60px rgba(255,255,255,.06);
+    user-select:none;white-space:nowrap;
+  }
+  .foot-bottom{
+    display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:60px;
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="whiteify" color-interpolation-filters="sRGB">
+      <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.45 -0.45 -0.45 0 1.15" result="inv"/>
+      <feComposite in="inv" in2="SourceAlpha" operator="in" result="m2"/>
+      <feFlood flood-color="#ffffff" result="w"/>
+      <feComposite in="w" in2="m2" operator="in"/>
+    </filter>
+  </defs>
+</svg>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#top" aria-label="Fortson">
+      <img src="https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515169694-EOY2P5J73JSPKMGKCWWG/Fortson+Pragmatica+Extended+Logo.png?format=750w" alt="FORTSON">
+    </a>
+    <div class="nav-links">
+      <a href="#profile">Builder Profile</a>
+      <a href="#mind">The Mind</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#philosophy">Philosophy</a>
+      <a href="#team">Team</a>
+      <a href="portfolio.html">Full&nbsp;Portfolio&nbsp;→</a>
+    </div>
+    <div class="nav-status"><span class="dot"></span> SYS.ONLINE — WA, US</div>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="hero-grid"></div>
+  <div class="wrap hero-inner">
+    <div class="boot" id="boot"></div>
+    <h1 class="hero-h1">
+      Authentic.<br>
+      Enduring.
+      <span class="dim-line">Shoulder&nbsp;to<br>Shoulder.</span>
+    </h1>
+  </div>
+  <div class="hero-meta">
+    <div class="wrap">
+      <span class="mono-label">FORTSON® — VENTURE CAPITAL</span>
+      <div class="scroll-hint"><span class="bar"></span> SCROLL</div>
+      <span class="mono-label">PRE-SEED → SEED+ / WESTERN&nbsp;US</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ BUILDER PROFILE ============ -->
+<section id="profile">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">[ 01 ]</span>
+      <h2 class="sec-title">Builder Profile</h2>
+    </div>
+    <div class="rule-strong reveal"></div>
+    <div class="bp-layout">
+      <div class="bp-copy reveal">
+        <p>We believe <b>founders are the defining force</b> behind enduring companies, and we seek to understand them better than anyone.</p>
+        <p>Our <b>quantitative framework</b> surfaces the deeper signals often missed by conventional diligence, allowing us to partner with non-linear builders at the earliest stages.</p>
+        <div class="vector-tabs" id="vectorTabs">
+          <button class="vector-tab active" data-p="0"><span>Vector 001 — The Outsider</span><span class="idx">▸</span></button>
+          <button class="vector-tab" data-p="1"><span>Vector 002 — The Operator</span><span class="idx">▸</span></button>
+          <button class="vector-tab" data-p="2"><span>Vector 003 — The Contrarian</span><span class="idx">▸</span></button>
+        </div>
+      </div>
+      <div class="radar-box frame reveal"><span class="tick-b"></span>
+        <svg id="radar" viewBox="0 0 700 640" xmlns="http://www.w3.org/2000/svg" aria-label="Founder radar chart"></svg>
+        <div class="radar-caption">
+          <span>FIG. 01 — FOUNDER VECTOR ANALYSIS</span>
+          <span id="axisReadout">HOVER AXIS FOR VALUE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE MIND ============ -->
+<section id="mind" class="brain-sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">[ 02 ]</span>
+      <h2 class="sec-title">The Mind of a Builder</h2>
+    </div>
+    <div class="rule-strong reveal"></div>
+    <div class="brain-layout">
+      <div class="brain-fig frame reveal"><span class="tick-b"></span>
+        <span class="fig-label">FIG. 02 — COMPLEX SYSTEM</span>
+        <span class="fig-label2">SUBJECT: FOUNDER / SIGNAL NETWORK</span>
+        <svg id="brainSvg" viewBox="0 0 640 520" xmlns="http://www.w3.org/2000/svg" aria-label="Glowing neural network figure"></svg>
+      </div>
+      <div class="brain-copy reveal">
+        <h3>Founder first.<br><span class="stroke">Idea second.<br>Inflection third.</span></h3>
+        <div class="order-blocks">
+          <div class="order-block">
+            <span class="order-num">01 THE FOUNDER</span>
+            <p>The <b>single greatest determinant</b> of success or failure. Before the deck, before the market, we underwrite the human: their psychology, their resilience, their nonlinear experience.</p>
+          </div>
+          <div class="order-block">
+            <span class="order-num">02 THE IDEA</span>
+            <p>Then the insight. The kind that only comes from <b>ridiculously deep domain expertise</b>. Contrarian, specific, and earned.</p>
+          </div>
+          <div class="order-block">
+            <span class="order-num">03 THE INFLECTION</span>
+            <p>Then the timing. A <b>market at its turning point</b>, where conviction compounds into velocity, entered before consensus arrives.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARAMETERS ============ -->
+<section id="parameters" style="padding-top:40px;">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">[ 03 ]</span>
+      <h2 class="sec-title">Fund Metrics</h2>
+    </div>
+    <div class="params reveal">
+      <div class="param">
+        <span class="mono-label">// Stage</span>
+        <div class="param-big">Pre-Seed → Seed+</div>
+        <p>We invest from <b>pre-seed</b> to <b>seed+</b>, with our strongest conviction at the earliest stages.</p>
+      </div>
+      <div class="param">
+        <span class="mono-label">// Geo's</span>
+        <div class="param-big">Western United States</div>
+        <p>We actively seek investment opportunities across the <b>Western US</b>.</p>
+      </div>
+      <div class="param">
+        <span class="mono-label">// Conviction</span>
+        <div class="param-big">Before Anyone Else</div>
+        <p>We back <b>founders</b> who trust their instincts and start building before anyone else grasps the size of the problem — or the opportunity.</p>
+      </div>
+      <div class="param">
+        <span class="mono-label">// Capital Allocation</span>
+        <div class="param-big">≈ $1M Initial</div>
+        <p>On average, our initial check is <b>approximately $1M</b>.</p>
+      </div>
+      <div class="param">
+        <span class="mono-label">// Fund Size</span>
+        <div class="param-big">$50M+</div>
+        <p>Our fund is <b>approximately $54M</b> in total, deployed over the next <b>three years</b>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PORTFOLIO STRIP ============ -->
+<section id="portfolio" class="strip-sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">[ 04 ]</span>
+      <h2 class="sec-title">Portfolio — Gen I</h2>
+    </div>
+    <p class="sec-sub reveal">Drag your cursor across the line to see the teams.</p>
+    <div class="dot-strip reveal" id="dotStrip">
+      <div class="strip-line"></div>
+      <div class="dot-glow" id="dotGlow">
+        <div class="halo"></div>
+        <img id="glowImg" src="" alt="" style="display:none">
+        <span class="stealth-txt" id="glowTxt" style="display:none"></span>
+      </div>
+    </div>
+    <div class="strip-readout reveal">
+      <span id="stripIdx">— / —</span>
+      <span id="stripName">AWAITING INPUT_</span>
+      <span>FOUNDING TEAMS ON FILE</span>
+    </div>
+    <div class="strip-cta reveal">
+      <a class="btn" href="portfolio.html">View Full Portfolio <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PHILOSOPHY ============ -->
+<section id="philosophy">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">[ 05 ]</span>
+      <h2 class="sec-title">Philosophy</h2>
+    </div>
+    <div class="philo">
+      <div class="philo-block reveal">
+        <h3><span class="no">DOCTRINE / 01</span>Enduring Partnership with the Founder</h3>
+        <p>At Fortson, we believe the founder and their team are the <b>single greatest determinant</b> of success or failure in an early-stage company. Markets matter. Revolutionary technology matters. Timing matters. But in early-stage venture, it is all driven by the founder.</p>
+        <p>We focus on the founder beneath the narrative. Their psychology. Their contrarian insights. Their response to adversity. Resilience and nonlinear experience compound quietly long before metrics catch up. Founders deserve a partner willing to walk <b>shoulder to shoulder</b>. At Fortson, we embrace that role.</p>
+      </div>
+      <div class="philo-block reveal">
+        <h3><span class="no">DOCTRINE / 02</span>Disciplined Judgment</h3>
+        <p>Venture capital is entering a <b>quantitative era</b>. There is more observable data than ever on early-stage founders and their companies. We believe the future of venture will belong to firms that can systematically identify signal in noisy early data, build disciplined frameworks around founders, markets, and timing, and continuously update conviction as new information emerges.</p>
+        <p>At Fortson, these systems serve as a powerful early filter, sharpening our focus and reducing noise. But they do not replace judgment. <b>Judgment remains the rarest asset in venture, irreducibly human.</b> It carries us through the final five percent, where experience, pattern recognition, and insight ultimately determine the outcome.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEAM ============ -->
+<section id="team">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">[ 06 ]</span>
+      <h2 class="sec-title">Meet the Team</h2>
+    </div>
+    <div class="rule-strong reveal"></div>
+    <div class="team-grid" id="teamGrid"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <span class="mono-label">FORTSON MANAGEMENT COMPANY, LLC<br>WA, UNITED STATES</span>
+      </div>
+      <div style="text-align:right;">
+        <span class="mono-label">
+          <a href="portfolio.html" style="display:block;">/ FULL PORTFOLIO</a>
+          <a href="https://www.fortsonvc.com/new-page" style="display:block;">/ NEWSLETTER</a>
+        </span>
+      </div>
+    </div>
+    <div class="giant">FORTSON</div>
+    <div class="foot-bottom">
+      <span>© 2026 FORTSON MANAGEMENT COMPANY, LLC — ALL RIGHTS RESERVED</span>
+      <span>AUTHENTIC / ENDURING / SHOULDER TO SHOULDER</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============ reveal on scroll ============ */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ============ boot typewriter + scroll arrows ============ */
+const bootEl=document.getElementById('boot');
+const bootLine="> boot fortson_os --quiet";
+let ci=0,typed="",arrows=0,arrowMax=0;
+function type(){
+  if(ci<bootLine.length){
+    typed+=bootLine[ci++];
+    bootEl.innerHTML=typed+'<span class="cursor"></span>';
+    setTimeout(type,34+Math.random()*50);
+  }else{
+    arrowMax=Math.max(12,Math.floor(bootEl.clientWidth/26));
+    setTimeout(printArrows,600);
+  }
+}
+function printArrows(){
+  if(arrows<arrowMax){
+    arrows++;
+    bootEl.innerHTML=typed+'\n'+'<span class="darr">&gt;</span>'.repeat(arrows)+'<span class="cursor"></span>';
+    setTimeout(printArrows,130);
+  }else{
+    bootEl.innerHTML=typed+'\n'+'<span class="darr">&gt;</span>'.repeat(arrows)+'<span class="cursor"></span>';
+  }
+}
+setTimeout(type,400);
+
+/* ============ radar chart ============ */
+const AXES=["NONLINEAR","SPIKE","URGENCY","RESILIENCE","HUMILITY","EXECUTION","CONTRARIAN"];
+const PROFILES=[
+  [.95,.72,.80,.90,.55,.74,.92],
+  [.62,.86,.92,.80,.70,.97,.64],
+  [.82,.90,.68,.85,.58,.70,.98]
+];
+const svg=document.getElementById('radar');
+const NS="http://www.w3.org/2000/svg";
+const CX=350,CY=310,R=225,N=AXES.length;
+let cur=PROFILES[0].slice(),target=PROFILES[0].slice(),drawn=false;
+
+function pt(i,r){const a=-Math.PI/2+i*2*Math.PI/N;return[CX+Math.cos(a)*r,CY+Math.sin(a)*r];}
+function el(t,attrs){const e=document.createElementNS(NS,t);for(const k in attrs)e.setAttribute(k,attrs[k]);return e;}
+
+/* defs: glow filter */
+const defs=el('defs',{});
+defs.innerHTML=`
+  <filter id="g1" x="-60%" y="-60%" width="220%" height="220%">
+    <feGaussianBlur stdDeviation="6" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="g2" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="2.2" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>`;
+svg.appendChild(defs);
+
+/* rings */
+for(let ring=1;ring<=5;ring++){
+  const pts=[];for(let i=0;i<N;i++)pts.push(pt(i,R*ring/5).join(','));
+  svg.appendChild(el('polygon',{points:pts.join(' '),fill:'none',stroke:'rgba(233,230,223,.10)','stroke-width':1}));
+}
+/* spokes + labels + tick values */
+for(let i=0;i<N;i++){
+  const[x,y]=pt(i,R);
+  svg.appendChild(el('line',{x1:CX,y1:CY,x2:x,y2:y,stroke:'rgba(233,230,223,.14)','stroke-width':1}));
+  const[lx,ly]=pt(i,R+34);
+  const t=el('text',{x:lx,y:ly,'text-anchor':'middle','dominant-baseline':'middle',fill:'#8f8c83',
+    'font-family':"'IBM Plex Mono',monospace",'font-size':'13','letter-spacing':'2'});
+  t.textContent=AXES[i];t.style.cursor='default';t.dataset.axis=i;
+  svg.appendChild(t);
+}
+/* sweep line */
+const sweep=el('line',{x1:CX,y1:CY,x2:CX,y2:CY-R,stroke:'rgba(233,230,223,.20)','stroke-width':1});
+const sweepG=el('g',{});sweepG.appendChild(sweep);svg.appendChild(sweepG);
+let ang=0;
+/* polygon + vertices */
+const poly=el('polygon',{fill:'rgba(233,230,223,.10)',stroke:'#e9e6df','stroke-width':2,filter:'url(#g1)'});
+svg.appendChild(poly);
+const verts=[],vlabels=[];
+for(let i=0;i<N;i++){
+  const c=el('circle',{r:4.5,fill:'#e9e6df',filter:'url(#g2)'});c.style.cursor='pointer';
+  svg.appendChild(c);verts.push(c);
+  const vl=el('text',{'text-anchor':'middle',fill:'#e9e6df','font-family':"'IBM Plex Mono',monospace",'font-size':'12',opacity:0});
+  svg.appendChild(vl);vlabels.push(vl);
+  const hit=el('circle',{r:22,fill:'transparent'});hit.style.cursor='pointer';
+  hit.addEventListener('mouseenter',()=>{
+    vl.setAttribute('opacity',1);c.setAttribute('r',7);
+    document.getElementById('axisReadout').textContent=AXES[i]+' :: '+Math.round(cur[i]*100)+' / 100';
+  });
+  hit.addEventListener('mouseleave',()=>{vl.setAttribute('opacity',0);c.setAttribute('r',4.5);});
+  svg.appendChild(hit);verts.push(hit);
+}
+function render(){
+  const pts=[];
+  for(let i=0;i<N;i++){
+    const[x,y]=pt(i,R*cur[i]);pts.push(x+','+y);
+    verts[i*2].setAttribute('cx',x);verts[i*2].setAttribute('cy',y);
+    verts[i*2+1].setAttribute('cx',x);verts[i*2+1].setAttribute('cy',y);
+    vlabels[i].setAttribute('x',x);vlabels[i].setAttribute('y',y-16);
+    vlabels[i].textContent=Math.round(cur[i]*100);
+  }
+  poly.setAttribute('points',pts.join(' '));
+}
+function tick(){
+  let moving=false;
+  for(let i=0;i<N;i++){
+    const d=target[i]-cur[i];
+    if(Math.abs(d)>.002){cur[i]+=d*.08;moving=true;}else cur[i]=target[i];
+  }
+  render();
+  ang+=.35;
+  sweepG.setAttribute('transform',`rotate(${ang} ${CX} ${CY})`);
+  requestAnimationFrame(tick);
+}
+/* draw-in when visible */
+const rio=new IntersectionObserver(es=>{
+  if(es[0].isIntersecting&&!drawn){
+    drawn=true;cur=cur.map(()=>0);tick();rio.disconnect();
+  }
+},{threshold:.3});
+rio.observe(svg);
+/* tabs */
+document.querySelectorAll('.vector-tab').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.vector-tab').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  target=PROFILES[+b.dataset.p].slice();
+}));
+
+/* ============ brain diagram ============ */
+const bs=document.getElementById('brainSvg');
+bs.innerHTML=`
+<defs>
+  <filter id="soft2" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2.4"/></filter>
+  <filter id="nglow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="5"/></filter>
+</defs>
+<g id="netLinks" stroke="#e9e6df" stroke-width="1" fill="none"></g>
+<g id="netNodes"></g>
+`;
+/* ---- layered neural network (MLP), glowing, cursor-reactive ---- */
+(function(){
+  const NS='http://www.w3.org/2000/svg';
+  const layers=[4,6,6,2];
+  const xs=[80,247,413,580];
+  const NN=[];
+  layers.forEach((count,li)=>{
+    const spacing=count===6?62:(count===4?78:100);
+    const y0=258-((count-1)/2)*spacing;
+    for(let k=0;k<count;k++){
+      NN.push({x:xs[li],y:y0+k*spacing,layer:li,ph:Math.random()*6.28,sp:.5+Math.random()*1.1});
+    }
+  });
+  const linksG=document.getElementById('netLinks');
+  const nodesG=document.getElementById('netNodes');
+  const LL=[];
+  /* full connections between adjacent layers */
+  NN.forEach(a=>{
+    if(a.layer>=layers.length-1)return;
+    NN.forEach(b=>{
+      if(b.layer!==a.layer+1)return;
+      const l=document.createElementNS(NS,'line');
+      l.setAttribute('x1',a.x);l.setAttribute('y1',a.y);
+      l.setAttribute('x2',b.x);l.setAttribute('y2',b.y);
+      const base=.06+Math.random()*.08;
+      l.setAttribute('opacity',base.toFixed(2));
+      linksG.appendChild(l);
+      LL.push({el:l,a,b,base});
+    });
+  });
+  NN.forEach(n=>{
+    const g=document.createElementNS(NS,'g');
+    const halo=document.createElementNS(NS,'circle');
+    halo.setAttribute('cx',n.x);halo.setAttribute('cy',n.y);halo.setAttribute('r',15);
+    halo.setAttribute('fill','#e9e6df');halo.setAttribute('filter','url(#nglow)');
+    halo.setAttribute('opacity','0');
+    const ring=document.createElementNS(NS,'circle');
+    ring.setAttribute('cx',n.x);ring.setAttribute('cy',n.y);ring.setAttribute('r',12);
+    ring.setAttribute('fill','#0c0c0d');ring.setAttribute('stroke','#e9e6df');
+    ring.setAttribute('stroke-width','2');ring.setAttribute('filter','url(#soft2)');
+    const core=document.createElementNS(NS,'circle');
+    core.setAttribute('cx',n.x);core.setAttribute('cy',n.y);core.setAttribute('r',6);
+    core.setAttribute('fill','#e9e6df');
+    g.append(halo,ring,core);
+    nodesG.appendChild(g);
+    n.halo=halo;n.ring=ring;n.core=core;
+  });
+  let mx=-9999,my=-9999;
+  bs.addEventListener('mousemove',e=>{
+    const r=bs.getBoundingClientRect();
+    mx=(e.clientX-r.left)/r.width*640;
+    my=(e.clientY-r.top)/r.height*520;
+  });
+  bs.addEventListener('mouseleave',()=>{mx=-9999;my=-9999;});
+  function boostOf(n){return Math.max(0,1-Math.hypot(n.x-mx,n.y-my)/130);}
+  function tick(t){
+    for(const n of NN){
+      const pulse=.35+.2*Math.sin(t/1000*n.sp+n.ph);
+      const boost=boostOf(n);
+      n.core.setAttribute('opacity',Math.min(1,pulse+boost).toFixed(3));
+      n.ring.setAttribute('stroke-opacity',Math.min(1,.55+boost*.45).toFixed(3));
+      n.halo.setAttribute('opacity',(boost*.85).toFixed(3));
+    }
+    for(const l of LL){
+      const bo=Math.max(boostOf(l.a),boostOf(l.b));
+      l.el.setAttribute('opacity',Math.min(.8,l.base+bo*.4).toFixed(3));
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+/* counters */
+document.querySelectorAll('[data-count]').forEach(elm=>{
+  new IntersectionObserver((es,ob)=>{
+    if(!es[0].isIntersecting)return;ob.disconnect();
+    const end=+elm.dataset.count;let v=0;
+    const iv=setInterval(()=>{v+=2;if(v>=end){v=end;clearInterval(iv);}elm.textContent=v+' / 100';},28);
+  },{threshold:.5}).observe(elm);
+});
+
+/* ============ dot strip ============ */
+const COMPANIES=[
+ {n:"HYPERPARAM",img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166184-CKIZLRZAEXIOKV7GVYSG/Hyperparam+web+logo+BW.png?format=500w"},
+ {n:"STURDY",img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166229-4ZBRRU0L7G4B9S1I02XL/Sturdy+Web+logo+BW.png?format=500w"},
+ {n:"CUEZEN",img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166153-6ATN8S8GJCTLL5J9FC3P/CueZen+Web+Port+LOGO+BW.png?format=500w"},
+ {n:"HEARVANA",img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166133-OJZ12KLJIDV1EO3BQMB1/hearvana%2Bweb%2Blogo%2BBW.png?format=500w"},
+ {n:"CERTIV",img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1773683838863-C3TUZDE5UKT4PCE2O5UQ/Certiv%252BWebsite%252BPortfolio%252BTile.png?format=500w"},
+ {n:"GIERD",img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515166242-GAVIX4E0N4UO7Y54OEIT/Gierd+Web+logo+.png?format=500w"},
+ {n:"TERNION [STEALTH]",txt:"STEALTH"},
+ {n:"TRINITY LABS",txt:"STEALTH"},
+ {n:"STEALTH — INSURE-TECH",txt:"STEALTH"},
+ {n:"STEALTH — AI OPTIMIZATION",txt:"STEALTH"},
+ {n:"COMPANY XI — CLASSIFIED",txt:"CLASSIFIED"}
+];
+COMPANIES.forEach(c=>{if(c.img){const i=new Image();i.src=c.img;}});
+const strip=document.getElementById('dotStrip');
+const card=document.getElementById('dotGlow');
+const gImg=document.getElementById('glowImg');
+const gTxt=document.getElementById('glowTxt');
+const dots=[];
+COMPANIES.forEach((c,i)=>{
+  const d=document.createElement('div');d.className='strip-dot';
+  const x=4+(92*(i/(COMPANIES.length-1)));
+  d.style.left=x+'%';
+  d.innerHTML=`<span class="dnum">${String(i+1).padStart(3,'0')}</span>`;
+  strip.appendChild(d);dots.push(d);
+});
+let lastIdx=-1,hideT=null;
+function showAt(idx){
+  if(idx!==lastIdx){
+    lastIdx=idx;
+    dots.forEach((d,i)=>d.classList.toggle('hot',i===idx));
+    const c=COMPANIES[idx];
+    if(c.img){
+      gImg.src=c.img;gImg.style.display='';gTxt.style.display='none';
+    }else{
+      gTxt.textContent=c.txt;gTxt.style.display='';gImg.style.display='none';
+    }
+    document.getElementById('stripIdx').textContent=String(idx+1).padStart(3,'0')+' / '+String(COMPANIES.length).padStart(3,'0');
+    document.getElementById('stripName').textContent=c.n;
+    /* position directly above the dot */
+    card.style.left=(4+(92*(idx/(COMPANIES.length-1))))+'%';
+  }
+  card.classList.add('show');
+  clearTimeout(hideT);
+  hideT=setTimeout(()=>{card.classList.remove('show');dots.forEach(d=>d.classList.remove('hot'));lastIdx=-1;},1100);
+}
+strip.addEventListener('mousemove',e=>{
+  const r=strip.getBoundingClientRect();
+  const px=e.clientX-r.left;
+  const frac=(px/r.width-0.04)/0.92;
+  const idx=Math.max(0,Math.min(COMPANIES.length-1,Math.round(frac*(COMPANIES.length-1))));
+  showAt(idx);
+});
+strip.addEventListener('mouseleave',()=>{card.classList.remove('show');dots.forEach(d=>d.classList.remove('hot'));lastIdx=-1;});
+/* touch support */
+strip.addEventListener('touchmove',e=>{
+  const t=e.touches[0];const r=strip.getBoundingClientRect();
+  const px=t.clientX-r.left;
+  const frac=(px/r.width-0.04)/0.92;
+  const idx=Math.max(0,Math.min(COMPANIES.length-1,Math.round(frac*(COMPANIES.length-1))));
+  showAt(idx);
+},{passive:true});
+
+/* ============ team ============ */
+const TEAM=[
+ {n:"Cole Younger",r:"Founder & Managing Partner",pos:"50% 42%",img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515168689-72JQ5U3D4FZ390ZISB6I/COLE+WEB+PHOTO+w+NOISE.png?format=750w",
+  b:"Cole Younger is the founder and Managing Partner of Fortson®. He studied finance and engineering at the University of Washington, a combination that helped shape his qualitative and quantitative approach to venture investing. Before founding Fortson, Cole spent much of his career in venture, working closely with entrepreneurs at the earliest stages. These experiences shaped his respect for the entrepreneurial journey and directly influenced how he partners with founders today. Living in the Pacific Northwest, he spends his free time fly fishing, gardening, and cultivating the perfect flower. Of all his accomplishments, the one he is most proud of is being married to his wife and building a life with her.",
+  li:"https://www.linkedin.com/in/cole-younger-32717893/"},
+ {n:"David Gorter",r:"Partner",img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515168716-E9XJHNM1HCCP55QDOXMH/Sid+Web+Photo+3.jpg?format=750w",
+  b:"David Gorter is a Partner at Fortson® and a member of the investment committee. He started his first business right out of college and has been a lifelong entrepreneur ever since. A formative expedition through Kenya, including climbing Mt. Kenya and traveling across East Africa, helped shape his resilience and long-term perspective on venture investing. He's proud to have served on his alma mater's board for 16 years and is a firm believer in the value of education.",
+  li:null},
+ {n:"Melissa Alexander",r:"Chief of Staff",pos:"50% 22%",img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515168698-JMHQUDQBZPCDS07EB7TF/Melissa+Web+photo+BW+w+Noise.png?format=750w",
+  b:"Melissa is Fortson's Chief of Staff. She holds a degree in Communication with a background spanning marketing, media planning, and operations. She specializes in execution and is a world-class project manager. Outside of work, she is an avid reader, with a particular interest in apologetics.",
+  li:"https://www.linkedin.com/in/melissa-a-50b628189/"},
+ {n:"Cade Younger",r:"Senior Associate",img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515168707-2WXQ4MPFEQKVM3R2GGD2/Cade+Web+Photo+w+Noise+BW.png?format=750w",
+  b:"Cade is a Senior Associate at Fortson VC, where he focuses on sourcing new investment opportunities, supporting portfolio companies, and contributing to investment decisions across early-stage software and AI businesses. He works closely with founders from initial evaluation through post-investment strategy, partnering on growth, positioning, and long-term value creation. Prior to joining Fortson, he worked in middle-market private equity and venture capital, as well as at a data-driven technology company. Outside of investing, Cade enjoys perfecting homemade pizzas, fly fishing in the Pacific Northwest, and staying competitive through sports, drawing from his background as a former collegiate football player.",
+  li:"https://www.linkedin.com/in/cade-younger-08887b15b/"},
+ {n:"Levi Younger",r:"Brand & Community",img:"https://images.squarespace-cdn.com/content/v1/69972d16588ddc3e65552d14/1771515168725-4D1F1AZOJ0D34D8ZRGCS/LEVI+WEB+PHOTO+FINAL.jpg?format=750w",
+  b:"Levi is the newest member of Fortson®. His work sits at the intersection of visuals, community, and brand. Outside of the firm, he is actively building and scaling an e-commerce company in his spare time, and he enjoys fitness, graphic design, and Settlers of Catan.",
+  li:"https://www.linkedin.com/in/imleviyounger/"}
+];
+const tg=document.getElementById('teamGrid');
+TEAM.forEach((m,i)=>{
+  const d=document.createElement('div');
+  d.className='member reveal';
+  d.innerHTML=`
+    <div class="photo">${m.fit==='contain'?`<img class="bg-blur" src="${m.img}" alt="" aria-hidden="true" loading="lazy">`:''}<img class="fg" src="${m.img}" alt="${m.n}" loading="lazy" style="object-fit:${m.fit||'cover'};object-position:${m.pos||'50% 50%'}"></div>
+    <div class="info">
+      <div class="name">${m.n}</div>
+      <div class="role">// ${m.r}</div>
+      <div class="bio">${m.b}${m.li?` <a href="${m.li}" target="_blank" rel="noopener" style="color:#e9e6df;text-decoration:underline;">LinkedIn ↗</a>`:''}</div>
+      <span class="more">+ Read dossier</span>
+    </div>`;
+  d.querySelector('.more').addEventListener('click',()=>{
+    d.classList.toggle('open');
+    d.querySelector('.more').textContent=d.classList.contains('open')?'− Close dossier':'+ Read dossier';
+  });
+  tg.appendChild(d);io.observe(d);
+});
+</script>
+</body>
+</html>
