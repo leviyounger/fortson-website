@@ -424,7 +424,7 @@
     </a>
     <div class="nav-links">
       <a href="#profile">Builder Profile</a>
-      <a href="#mind">The Mind</a>
+      <a href="#mind">Conviction</a>
       <a href="#portfolio">Portfolio</a>
       <a href="#philosophy">Philosophy</a>
       <a href="#team">Team</a>
@@ -436,7 +436,7 @@
 </nav>
 <div class="mobile-menu" id="mobileMenu">
   <a href="#profile"><span class="no">01</span>Builder Profile</a>
-  <a href="#mind"><span class="no">02</span>The Mind</a>
+  <a href="#mind"><span class="no">03</span>Conviction</a>
   <a href="#portfolio"><span class="no">04</span>Portfolio</a>
   <a href="#philosophy"><span class="no">05</span>Philosophy</a>
   <a href="#team"><span class="no">06</span>Team</a>
@@ -492,46 +492,11 @@
   </div>
 </section>
 
-<!-- ============ THE MIND ============ -->
-<section id="mind" class="brain-sec">
+<!-- ============ PARAMETERS ============ -->
+<section id="parameters">
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="sec-num">[ 02 ]</span>
-      <h2 class="sec-title">The Mind of a Builder</h2>
-    </div>
-    <div class="rule-strong reveal"></div>
-    <div class="brain-layout">
-      <div class="brain-fig frame reveal"><span class="tick-b"></span>
-        <span class="fig-label">FIG. 02 — COMPLEX SYSTEM</span>
-        <span class="fig-label2">SUBJECT: FOUNDER / SIGNAL NETWORK</span>
-        <svg id="brainSvg" viewBox="0 0 640 520" xmlns="http://www.w3.org/2000/svg" aria-label="Glowing neural network figure"></svg>
-      </div>
-      <div class="brain-copy reveal">
-        <h3>Founder first.<br><span class="stroke">Idea second.<br>Inflection third.</span></h3>
-        <div class="order-blocks">
-          <div class="order-block">
-            <span class="order-num">01 THE FOUNDER</span>
-            <p>The <b>single greatest determinant</b> of success or failure. Before the deck, before the market, we underwrite the human: their psychology, their resilience, their nonlinear experience.</p>
-          </div>
-          <div class="order-block">
-            <span class="order-num">02 THE IDEA</span>
-            <p>Then the insight. The kind that only comes from <b>ridiculously deep domain expertise</b>. Contrarian, specific, and earned.</p>
-          </div>
-          <div class="order-block">
-            <span class="order-num">03 THE INFLECTION</span>
-            <p>Then the timing. A <b>market at its turning point</b>, where conviction compounds into velocity, entered before consensus arrives.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ PARAMETERS ============ -->
-<section id="parameters" style="padding-top:40px;">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="sec-num">[ 03 ]</span>
       <h2 class="sec-title">Fund Metrics</h2>
     </div>
     <div class="params reveal">
@@ -563,6 +528,42 @@
     </div>
   </div>
 </section>
+
+<!-- ============ THE MIND ============ -->
+<section id="mind" class="brain-sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">[ 03 ]</span>
+      <h2 class="sec-title">The Order of Conviction</h2>
+    </div>
+    <div class="rule-strong reveal"></div>
+    <div class="brain-layout">
+      <div class="brain-fig frame reveal"><span class="tick-b"></span>
+        <span class="fig-label">FIG. 02 — COMPLEX SYSTEM</span>
+        <span class="fig-label2">SUBJECT: FOUNDER / SIGNAL NETWORK</span>
+        <svg id="brainSvg" viewBox="0 0 640 520" xmlns="http://www.w3.org/2000/svg" aria-label="Glowing neural network figure"></svg>
+      </div>
+      <div class="brain-copy reveal">
+        <h3>Founder first.<br><span class="stroke">Idea second.<br>Inflection third.</span></h3>
+        <div class="order-blocks">
+          <div class="order-block">
+            <span class="order-num">01 THE FOUNDER</span>
+            <p>The <b>single greatest determinant</b> of success or failure. Before the deck, before the market, we underwrite the human: their psychology, their resilience, their nonlinear experience.</p>
+          </div>
+          <div class="order-block">
+            <span class="order-num">02 THE IDEA</span>
+            <p>Then the insight. The kind that only comes from <b>ridiculously deep domain expertise</b>. Contrarian, specific, and earned.</p>
+          </div>
+          <div class="order-block">
+            <span class="order-num">03 THE INFLECTION</span>
+            <p>Then the timing. A <b>market at its turning point</b>, where conviction compounds into velocity, entered before consensus arrives.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- ============ PORTFOLIO STRIP ============ -->
 <section id="portfolio" class="strip-sec">
@@ -659,7 +660,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
 /* ============ boot typewriter + scroll arrows ============ */
 const bootEl=document.getElementById('boot');
-const bootLine="> boot fortson_os --quiet";
+const bootLine="> boot fortson_os";
 let ci=0,typed="",arrows=0,arrowMax=0;
 function type(){
   if(ci<bootLine.length){
