@@ -141,11 +141,14 @@
   }
 
   footer{border-top:1px solid var(--line);padding:70px 0 40px;overflow:hidden;}
-  .giant{
-    font-family:var(--ext);font-stretch:125%;font-weight:800;text-transform:uppercase;
-    font-size:clamp(70px,14.5vw,220px);line-height:.9;text-align:center;
-    color:transparent;-webkit-text-stroke:1px rgba(233,230,223,.22);
-    text-shadow:0 0 60px rgba(255,255,255,.06);user-select:none;white-space:nowrap;
+  .giant-svg{
+    width:100%;height:auto;display:block;user-select:none;
+    filter:drop-shadow(0 0 40px rgba(255,255,255,.05));
+  }
+  .giant-svg text{
+    font-family:var(--ext);font-stretch:125%;font-weight:800;
+    font-size:150px;
+    fill:transparent;stroke:rgba(233,230,223,.22);stroke-width:1.2;
   }
   .foot-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:56px;
     font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);}
@@ -193,7 +196,9 @@
 
 <footer>
   <div class="wrap">
-    <div class="giant">FORTSON</div>
+    <svg class="giant-svg" viewBox="0 0 1000 150" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <text x="500" y="122" text-anchor="middle" textLength="990" lengthAdjust="spacingAndGlyphs" vector-effect="non-scaling-stroke">FORTSON</text>
+    </svg>
     <div class="foot-bottom">
       <span>© 2026 FORTSON MANAGEMENT COMPANY, LLC — ALL RIGHTS RESERVED</span>
       <span>WA, UNITED STATES</span>
